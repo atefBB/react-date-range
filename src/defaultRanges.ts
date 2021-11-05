@@ -28,7 +28,8 @@ const defineds = {
 
 const staticRangeHandler = {
   range: {},
-  isSelected(range) {
+  isSelected(range: any) {
+    // @ts-expect-error ts-migrate(2349) FIXME: This expression is not callable.
     const definedRange = this.range();
     return (
       isSameDay(range.startDate, definedRange.startDate) &&
@@ -37,8 +38,11 @@ const staticRangeHandler = {
   },
 };
 
-export function createStaticRanges(ranges) {
-  return ranges.map(range => ({ ...staticRangeHandler, ...range }));
+export function createStaticRanges(ranges: any) {
+  return ranges.map((range: any) => ({
+    ...staticRangeHandler,
+    ...range,
+  }));
 }
 
 export const defaultStaticRanges = createStaticRanges([
@@ -90,13 +94,13 @@ export const defaultStaticRanges = createStaticRanges([
 export const defaultInputRanges = [
   {
     label: 'days up to today',
-    range(value) {
+    range(value: any) {
       return {
         startDate: addDays(defineds.startOfToday, (Math.max(Number(value), 1) - 1) * -1),
         endDate: defineds.endOfToday,
       };
     },
-    getCurrentValue(range) {
+    getCurrentValue(range: any) {
       if (!isSameDay(range.endDate, defineds.endOfToday)) return '-';
       if (!range.startDate) return '∞';
       return differenceInCalendarDays(defineds.endOfToday, range.startDate) + 1;
@@ -104,14 +108,14 @@ export const defaultInputRanges = [
   },
   {
     label: 'days starting today',
-    range(value) {
+    range(value: any) {
       const today = new Date();
       return {
         startDate: today,
         endDate: addDays(today, Math.max(Number(value), 1) - 1),
       };
     },
-    getCurrentValue(range) {
+    getCurrentValue(range: any) {
       if (!isSameDay(range.startDate, defineds.startOfToday)) return '-';
       if (!range.endDate) return '∞';
       return differenceInCalendarDays(range.endDate, defineds.startOfToday) + 1;

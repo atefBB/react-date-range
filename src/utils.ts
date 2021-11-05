@@ -9,7 +9,7 @@ import {
   addDays,
 } from 'date-fns';
 
-export function calcFocusDate(currentFocusedDate, props) {
+export function calcFocusDate(currentFocusedDate: any, props: any) {
   const { shownDate, date, months, ranges, focusedRange, displayMode } = props;
   // find primary date according the props
   let targetInterval;
@@ -41,16 +41,18 @@ export function calcFocusDate(currentFocusedDate, props) {
   return targetDate;
 }
 
-export function findNextRangeIndex(ranges, currentRangeIndex = -1) {
+export function findNextRangeIndex(ranges: any, currentRangeIndex = -1) {
   const nextIndex = ranges.findIndex(
-    (range, i) => i > currentRangeIndex && range.autoFocus !== false && !range.disabled
+    (range: any, i: any) => i > currentRangeIndex && range.autoFocus !== false && !range.disabled
   );
   if (nextIndex !== -1) return nextIndex;
-  return ranges.findIndex(range => range.autoFocus !== false && !range.disabled);
+  return ranges.findIndex((range: any) => range.autoFocus !== false && !range.disabled);
 }
 
-export function getMonthDisplayRange(date, dateOptions, fixedHeight) {
+export function getMonthDisplayRange(date: any, dateOptions: any, fixedHeight: any) {
+  // @ts-expect-error ts-migrate(2554) FIXME: Expected 1 arguments, but got 2.
   const startDateOfMonth = startOfMonth(date, dateOptions);
+  // @ts-expect-error ts-migrate(2554) FIXME: Expected 1 arguments, but got 2.
   const endDateOfMonth = endOfMonth(date, dateOptions);
   const startDateOfCalendar = startOfWeek(startDateOfMonth, dateOptions);
   let endDateOfCalendar = endOfWeek(endDateOfMonth, dateOptions);
@@ -65,11 +67,11 @@ export function getMonthDisplayRange(date, dateOptions, fixedHeight) {
   };
 }
 
-export function generateStyles(sources) {
+export function generateStyles(sources: any) {
   if (!sources.length) return {};
   const generatedStyles = sources
-    .filter(source => Boolean(source))
-    .reduce((styles, styleSource) => {
+    .filter((source: any) => Boolean(source))
+    .reduce((styles: any, styleSource: any) => {
       Object.keys(styleSource).forEach(key => {
         styles[key] = classnames(styles[key], styleSource[key]);
       });
