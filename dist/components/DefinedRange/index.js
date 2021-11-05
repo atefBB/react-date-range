@@ -71,6 +71,9 @@ var DefinedRange = /*#__PURE__*/function (_Component) {
           ranges = _this$props.ranges,
           focusedRange = _this$props.focusedRange;
       var selectedRange = ranges[focusedRange[0]];
+      selectedRange = _objectSpread(_objectSpread({}, selectedRange), {
+        label: range.label
+      });
       if (!onChange || !selectedRange) return;
       onChange(_defineProperty({}, selectedRange.key || "range".concat(focusedRange[0] + 1), _objectSpread(_objectSpread({}, selectedRange), range)));
     });
@@ -151,7 +154,11 @@ var DefinedRange = /*#__PURE__*/function (_Component) {
           },
           key: i,
           onClick: function onClick() {
-            return _this2.handleRangeChange(staticRange.range(_this2.props));
+            var rangeWithLabel = _objectSpread(_objectSpread({}, staticRange.range(_this2.props)), {
+              label: staticRange.label
+            });
+
+            _this2.handleRangeChange(rangeWithLabel);
           },
           onFocus: function onFocus() {
             return onPreviewChange && onPreviewChange(staticRange.range(_this2.props));
