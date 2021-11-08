@@ -202,6 +202,7 @@ var DayCell = /*#__PURE__*/function (_Component) {
       var inRanges = ranges.reduce(function (result, range) {
         var startDate = range.startDate;
         var endDate = range.endDate;
+        if (startDate === null || endDate === null) return result;
 
         if (startDate && endDate && (0, _isBefore.default)(endDate, startDate)) {
           var _ref = [endDate, startDate];
